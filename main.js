@@ -1,8 +1,8 @@
-let numbers = document.querySelectorAll(".numbers");
-let display = document.querySelector(".display");
-let equals = document.querySelector(".equals");
-let clear = document.querySelector(".clearbutton");
-let dot = document.querySelector(".dot");
+const numbers = document.querySelectorAll(".numbers");
+const display = document.querySelector(".display");
+const equals = document.querySelector(".equals");
+const clear = document.querySelector(".clearbutton");
+const dot = document.querySelector(".dot");
 
 //  Adds event listener to each button (includes numbers and operators)
 
