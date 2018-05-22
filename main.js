@@ -1,13 +1,17 @@
+// Function declarations and TODO list at the end of the document.
+
 const numbers = document.querySelectorAll(".numbers");
+const ops = document.querySelectorAll(".op");
 const display = document.querySelector(".display");
 const equals = document.querySelector(".equals");
 const clear = document.querySelector(".clearbutton");
 const dot = document.querySelector(".dot");
+const backspace	= document.querySelector(".backspace");
 const SCREEN_SIZE = 13;
 
 
 //======================================================================
-//  Adds event listener to each button (includes numbers and operators)
+//  Adds event listener to each button (includes numbers only)
 //======================================================================
 
 for(let i = 0; i < numbers.length; i++) {
@@ -35,7 +39,33 @@ for(let i = 0; i < numbers.length; i++) {
 }
 
 //===========================================
-// 		Event Listener for the C button
+//  Event Listener for the Operators
+//===========================================
+
+for(let i = 0; i < ops.length; i++) {
+	
+	if (display.textContent.length === 13) {
+		break;
+	}
+	ops[i].addEventListener("mousedown", function() {
+
+		this.classList.toggle("buttonclick");
+
+		if( ( (display.textContent[display.textContent.length - 1]) !== this.textContent) && (display.textContent.length <= SCREEN_SIZE)) {
+
+			display.textContent += this.textContent;
+		}
+
+	});
+
+	ops[i].addEventListener("mouseup", function() {
+		this.classList.toggle("buttonclick");
+	});
+}
+
+
+//===========================================
+//  Event Listener for the C button
 //===========================================
 
 clear.addEventListener("mousedown", () => {
@@ -70,7 +100,7 @@ equals.addEventListener("mousedown", function() {
 
 dot.addEventListener("mousedown", function() {
 	
-	let displayContent = display.textContent.split(/[0-9]/);
+	let displayContent = display.textContent.split(/[+-x\/]/);
 	console.log(displayContent);
 	this.classList.add("buttonclick");
 	if(!displayContent.includes(".")) {
@@ -82,35 +112,27 @@ dot.addEventListener("mouseup", function() {
 	this.classList.remove("buttonclick");
 })
 
-//=====================================
+//===================================
+// Backspace functionality
+//===================================
+
+backspace.addEventListener("mousedown", function() {
+	this.classList.add("buttonclick");
+	displayContent = [...display.textContent];
+	if(displayContent.length > 1) {
+		displayContent.pop();
+		display.textContent = displayContent.join("");	
+	} else {
+		display.textContent = "0";
+	}
+})
 
 
-// TODO
+backspace.addEventListener("mouseup", function() {
+	this.classList.remove("buttonclick");
+})
 
-  // ADD Keyboard Functionality
-
-  // Add Syntax error functionality
-
-  // Add display Limit and overflow
-
- 	// Added display point limit of 13 on calculations ****
-
- 	// Add User input limitation - User can now input more digits than screen size  ****
-
-  // Add Decimal Point functionality
-     
-     // Add decimal point calculations
-
-     // Add multiple decimal points syntax error or stop multiple dots entry
-
-  // Add syntax error when equality is pressed multiple times
-
-  // Stop operator input when last Char entered is an operator
-
-
-
-
-// ===============  FUNCTIONS =================================
+// ====================  FUNCTIONS =================================
 
   // This function calculates when equal button is clicked
 function calculate(firstnum, secondnum, op) {
@@ -137,3 +159,32 @@ function calculate(firstnum, secondnum, op) {
 function reset() {
 	display.textContent = '0';
 }
+
+
+//================================================================================
+
+
+// TODO (**** means done)
+
+  // ADD Keyboard Functionality
+
+  // Add Syntax error functionality
+
+  // Add display Limit and overflow ****
+
+ 	// Added display point limit of 13 on calculations ****
+
+ 	// Add User input limitation - User can now input more digits than screen size  ****
+
+  // Add Decimal Point functionality
+     
+     // Add decimal point calculations
+
+     // Add multiple decimal points syntax error or stop multiple dots entry
+
+  // Add syntax error when equality is pressed multiple times
+
+  // Stop operator input when last Char entered is an operator
+
+  // Add backspace / Delete Character functionality ****
+
